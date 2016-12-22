@@ -2,6 +2,8 @@
   <dictionary name="AWESOME">
     <words>
       <w>lspace</w>
+      <w>sqlite</w>
+      <w>tablename</w>
     </words>
   </dictionary>
 </component>
