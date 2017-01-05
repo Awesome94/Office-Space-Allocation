@@ -18,7 +18,7 @@ Usage:
     -i --interactive Interactive mode.
     -v --version
 """
-import cmd
+import cmd, os
 from docopt import docopt, DocoptExit
 from pyfiglet import figlet_format
 from termcolor import cprint
@@ -132,8 +132,12 @@ class AmityInteractive(cmd.Cmd):
         Loads people from a text file to the app.
         Usage: load_people <filename>
         """
-        self.amity.load_people(arg["<filename>"])
-        print("File loaded.")
+        file_name = arg["<filename>"]
+        if os.path.exists(file_name):
+            self.amity.load_people(file_name)
+            print("File loaded.")
+        else:
+            print ("file does not exist")
 
     @app_exec
     def do_reallocate_person(self, arg):
@@ -142,7 +146,7 @@ class AmityInteractive(cmd.Cmd):
         Usage: reallocate_person <first_name> <last_name> <room_type> <new_room>
         """
         first_name = arg["<first_name>"]
-        last_name = arg["<l_name>"]
+        last_name = arg["<last_name>"]
         room_type = arg["<room_type>"]
         new_room = arg["<new_room>"]
         self.amity.reallocate_person(first_name, last_name, room_type, new_room)
