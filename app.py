@@ -24,9 +24,6 @@ import click
 from pyfiglet import figlet_format
 from termcolor import cprint
 from amity_functions import Amity
-term_size = shutil.get_terminal_size((80, 20))
-term_width = term_size[0]
-
 
 def app_exec(func):
     """

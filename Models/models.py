@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 Base = declarative_base()
 
 
-class Person(Base):
+class PersonModel(Base):
     """create a person table"""
     __tablename__ = 'person'
     person_id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
@@ -46,12 +46,11 @@ class DatabaseCreator(object):
     """creating database connection to object"""
 
     def __init__(self, db_name=None):
-        self.db_name = db_name
-        if self.db_name:
+        if db_name:
             self.db_name = db_name + '.sqlite'
         else:
             self.db_name = 'main.sqlite'
-            self.engine = create_engine('sqlite:///' + self.db_name)
-            self.session = sessionmaker()
-            self.session.configure(bind=self.engine)
-            Base.metadata.create_all(self.engine)
+        self.engine = create_engine('sqlite:///' + self.db_name)
+        self.session = sessionmaker()
+        self.session.configure(bind=self.engine)
+        Base.metadata.create_all(self.engine)

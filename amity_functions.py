@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from tabulate import tabulate
 
-from Models.models import (Base, Person, RoomModel, DatabaseCreator,
+from Models.models import (Base, PersonModel, RoomModel, DatabaseCreator,
                            OfficeSpaces, LivingSpaces)
 from room.rooms import Room
 from room.rooms import LivingSpace
@@ -252,7 +252,7 @@ class Amity:
             )
             db_session.merge(room_to_save)
         for person in Amity.all_people:
-            person_to_save = Person(
+            person_to_save = PersonModel(
                 name=person.name,
                 designation=person.designation
             )
