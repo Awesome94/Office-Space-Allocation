@@ -16,7 +16,7 @@ class Person(Base):
     name = Column(String, nullable=False)
     designation = Column(String, nullable=False)
 
-class Room(Base):
+class RoomModel(Base):
     """Create the rooms table
     """
     __tablename__ = 'room'
