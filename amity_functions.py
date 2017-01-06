@@ -7,9 +7,9 @@ from tabulate import tabulate
 
 from Models.models import (Base, PersonModel, RoomModel, DatabaseCreator,
                            OfficeSpaces, LivingSpaces)
-from room.rooms import Room
-from room.rooms import LivingSpace
-from room.rooms import OfficeSpace
+from room.rooms import Room, OfficeSpace, LivingSpace
+# from room.rooms import LivingSpace
+# from room.rooms import OfficeSpace
 from collections import defaultdict
 from Person.PersonClass import Person, Fellow, Staff
 

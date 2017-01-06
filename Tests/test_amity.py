@@ -1,26 +1,25 @@
 import os
 import unittest
-from unittest import TestCase
+# from unittest import TestCases
 # from mock import patch
-
+import sys
+sys.path.append('../Office-Space-Allocation')
 from amity_functions import *
-
-
 
 class TestAmity(unittest.TestCase):
 
     def test_it_creates_office(self):
         Amity.all_rooms =[]
-        Amity.create_room('o', 'Oculus')
-        self.assertNotEqual(len(amity.all_rooms), 0)
+        Amity.create_room(self, 'o', 'Oculus')
+        self.assertNotEqual(len(Amity.all_rooms), 0)
         self.assertIn('OCULUS', Amity.office_spaces.keys())
-        amity.all_rooms = []
+        Amity.all_rooms = []
 
     def test_it_creates_living_area(self):
-        Amity.create_room('l', 'Arduino')
-        self.assertNotEqual(len(amity.all_rooms), 0)
+        Amity.create_room(self, 'l', 'Arduino')
+        self.assertNotEqual(len(Amity.all_rooms), 0)
         self.assertIn('ARDUINO', Amity.living_spaces.keys())
-        amity.all_rooms = []
+        Amity.all_rooms = []
 
     def test_add_person(self):
         Amity.all_people = []

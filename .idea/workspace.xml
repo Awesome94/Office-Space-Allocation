@@ -4,7 +4,7 @@
     <list default="true" id="d4bcbea6-4b31-47f1-a402-4d68a37860f1" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tests/test_room.py" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/Tests/Amity_tests.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Office-Space-Allocation.iml" afterPath="$PROJECT_DIR$/.idea/Office-Space-Allocation.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Office_Space_Allocation.iml" afterPath="$PROJECT_DIR$/.idea/Office_Space_Allocation.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/AWESOME.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/AWESOME.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -24,7 +24,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
-    <favorites_list name="Office-Space-Allocation" />
+    <favorites_list name="Office_Space_Allocation" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -178,21 +178,21 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Office-Space-Allocation" />
+              <option name="myItemId" value="Office_Space_Allocation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Office-Space-Allocation" />
+              <option name="myItemId" value="Office_Space_Allocation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Office-Space-Allocation" />
+              <option name="myItemId" value="Office_Space_Allocation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Office-Space-Allocation" />
+              <option name="myItemId" value="Office_Space_Allocation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -227,7 +227,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/test_amity.py" />
       <option name="CLASS_NAME" value="AmityTest" />
       <option name="METHOD_NAME" value="test_it_creates_office" />
@@ -251,7 +251,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/amity_functions.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -268,7 +268,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Models/models.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -285,7 +285,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -300,7 +300,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/test_amity.py" />
       <option name="CLASS_NAME" value="AmityTest" />
       <option name="METHOD_NAME" value="test_it_creates_living_area" />
@@ -324,7 +324,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -339,7 +339,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Attests">
@@ -351,7 +351,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -370,7 +370,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -389,7 +389,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -410,7 +410,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -432,7 +432,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Office-Space-Allocation" />
+      <module name="Office_Space_Allocation" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />

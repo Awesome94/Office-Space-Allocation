@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Office-Space-Allocation.iml" filepath="$PROJECT_DIR$/.idea/Office-Space-Allocation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Office_Space_Allocation.iml" filepath="$PROJECT_DIR$/.idea/Office_Space_Allocation.iml" />
     </modules>
   </component>
 </project>
