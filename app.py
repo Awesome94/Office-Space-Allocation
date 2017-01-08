@@ -24,6 +24,8 @@ import click
 from pyfiglet import figlet_format
 from termcolor import cprint
 from amity_functions import Amity
+import colorama
+from colorama import Fore, Back, Style
 
 def app_exec(func):
     """

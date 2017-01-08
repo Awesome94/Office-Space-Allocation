@@ -12,6 +12,9 @@ from room.rooms import Room, OfficeSpace, LivingSpace
 # from room.rooms import OfficeSpace
 from collections import defaultdict
 from Person.PersonClass import Person, Fellow, Staff
+from colorama import init
+init()
+from  colorama import Fore, Back, Style
 
 class Amity:
     all_rooms = []
@@ -22,7 +25,7 @@ class Amity:
     def create_room(self, room_type, room_name):
         """Creates an empty room of the specified type."""
         if room_name.upper() in [room.room_name for room in Amity.all_rooms]:
-            print("Sorry, Room already exists!!!")
+            print(Fore.RED +"Sorry, Room already exists!!!")
         else:
             mapping = {'O': OfficeSpace, 'L': LivingSpace}
             new_room = mapping[room_type.upper()](room_name.upper())
@@ -31,7 +34,7 @@ class Amity:
                 Amity.living_spaces[room_name.upper()] = []
             elif room_type.upper() == "O":
                 Amity.office_spaces[room_name.upper()] = []
-            print(room_name.upper() + " created successfully.")
+            print(Fore.GREEN + room_name.upper() + " created successfully.")
 
     @staticmethod
     def generate_random_office():
@@ -78,6 +81,9 @@ class Amity:
             Amity.living_spaces[allocated_living_space].append(first_name.upper()
                                                               + " " + last_name.upper())
         print (first_name, last_name, designation)
+
+        if wants_accommodation.upper() == "Y" and designation.upper()=="S":
+            print (Fore.RED+ "Sorry, Staff can not be given accomodation")
         # print("Success!")
 
     @staticmethod
@@ -189,7 +195,7 @@ class Amity:
             file.write ("\n" + "=" * 30 + "\n" + "No LivingSpace\n" + "=" * 30)
             for person in unallocated_lspace:
                 file.write ("\n" + person or "None")
-            print ("%s.txt written successfully" % file_name)
+            print (Fore.GREEN +"%s.txt written successfully" % file_name)
 
     @staticmethod
     def print_room(room_name):
@@ -198,7 +204,7 @@ class Amity:
         lspaces = [room for room in Amity.living_spaces
                    if room != "None"]
         if room_name.upper () not in offices and room_name.upper () not in lspaces:
-            print ("The room doesn't exist")
+            print (Fore.RED +"The room doesn't exist")
         else:
             print ("=" * 30 + "\n Members \n" + "=" * 30)
             if room_name.upper () in offices:
@@ -215,12 +221,12 @@ class Amity:
         Session = sessionmaker()
         Session.configure(bind=engine)
         session = Session()
-        people = session.query(Person).all()
+        people = session.query(PersonModel).all()
         rooms = session.query(RoomModel).all()
-        office_spaces = session.query(OfficeSpace)
+        office_spaces = session.query(OfficeSpaces)
         living_spaces = session.query(LivingSpaces)
         if not dbname:
-            print("You must select a db to load.")
+            print(Fore.RED +"You must select a db to load.")
         else:
             for room in rooms:
                 Amity.all_rooms.append(room)
@@ -233,7 +239,7 @@ class Amity:
                 all_members = living_space.members.split (",")
                 Amity.living_spaces[living_space.room_name] = all_members
 
-            print ("Data from %s loaded to the app." % dbname)
+            print (Fore.GREEN +"Data from %s loaded to the app." % dbname)
 
     @staticmethod
     def save_state(db_name=None):
@@ -272,4 +278,4 @@ class Amity:
             )
             db_session.merge(living_spaces_sv)
         db_session.commit()
-        print ("Success!")
+        print (Fore.GREEN +"successfully Saved Current  State as!")
