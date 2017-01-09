@@ -33,7 +33,7 @@ Run ```save_state<db_name>``` to save the current state of the program to any da
 
 Run ```load_state<file_name>``` to load data from any existing SQL database.
 
-Run ```load_people<file_name>``` to load data from any .txt format file.
+Run ```load_people<file_name>``` to load data from any ```.txt``` format file.
 
 Run ```reallocate_person <person_id> <current_room_type> <new room name>``` to transfer a person from one room to another
 
