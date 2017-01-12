@@ -157,19 +157,6 @@ class AmityInteractive(cmd.Cmd):
         else:
             print('%s is not a room in Amity' % new_room)
 
-    # @app_exec
-    # def do_reallocate_person(self, arg):
-    #     """
-    #     Reallocates person
-    #     Usage: reallocate_person <first_name> <last_name> <old_room> <new_room>
-    #     """
-    #     first_name = arg["<first_name>"]
-    #     last_name = arg["<last_name>"]
-    #     old_room = arg["<old_room>"]
-    #     new_room = arg["<new_room>"]
-    #     self.amity.reallocate_person(first_name, last_name, old_room, new_room)
-
-    @app_exec
     def do_load_state(self, arg):
         """
         Loads data from the specified db into the app.

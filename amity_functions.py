@@ -99,10 +99,7 @@ class Amity:
                                  accommodate)
     @staticmethod
     def reallocate_person_to_office(full_name, new_room_name):
-        '''
-        use the person full name to remove the person from one office
-        to another
-        '''
+        # use the person full name to remove the person from one office to another
         full_name = full_name.upper()
         if not full_name in Amity.all_people:
             return 'The person called %s does not exist' % full_name
@@ -123,8 +120,8 @@ class Amity:
     @staticmethod
     def reallocate_person_to_living_space(full_name, new_room_name):
 
-        # use the person full name to remove the person from one livingspace
-        # to another, should not reallocate to the same room or a room that is full
+        '''use the person full name to remove the person from one livingspace
+     to another, should not reallocate to the same room or a room that is full'''
 
         full_name = full_name.upper()
         if not full_name in Amity.all_people:
@@ -175,7 +172,7 @@ class Amity:
 
     @staticmethod
     def print_unallocated(file_name=None):
-        """Prints all the people that have no rooms and arranges by room"""
+        # Prints all the people that have no rooms and arranges by room
         unallocated_office = Amity.office_spaces["None"]
         unallocated_lspace = Amity.living_spaces["None"]
         print ("=" * 30 + "\n" + "No Office\n" + "=" * 30)
@@ -216,6 +213,7 @@ class Amity:
     def load_state(dbname=None):
         dbname = dbname + ".sqlite"
         if not os.path.isfile(dbname):
+            # incase one enters a database that does not exist.
             print ("database does not exist")
         else:
             engine = create_engine("sqlite:///" + dbname)
@@ -242,7 +240,7 @@ class Amity:
 
     @staticmethod
     def save_state(db_name=None):
-        """Persists data saved in the app to a db"""
+    # Persists data saved in the app to a db
         if not db_name:
             db = DatabaseCreator("default_db")
         else:
