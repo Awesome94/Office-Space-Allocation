@@ -14,7 +14,8 @@ class PersonModel(Base):
     __tablename__ = 'person'
     person_id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String, nullable=False)
-    designation = Column(String, nullable=False)
+    designation = Column(Boolean, nullable=False)
+    # wants_accomodation = Column(Boolean, unique=True, default=False)
 
 class RoomModel(Base):
     """Create the rooms table
@@ -22,8 +23,8 @@ class RoomModel(Base):
     __tablename__ = 'room'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(32), nullable=False)
-    room_type = Column(String(32), nullable=False)
-    room_capacity = Column(Integer, nullable=False)
+    rtype = Column(String(32), nullable=False)
+    # capacity = Column(Integer, nullable=False)
 
 
 class OfficeSpaces(Base):
@@ -44,13 +45,9 @@ class LivingSpaces(Base):
 
 class DatabaseCreator(object):
     """creating database connection to object"""
-
     def __init__(self, db_name=None):
-        if db_name:
-            self.db_name = db_name + '.sqlite'
-        else:
-            self.db_name = 'main.sqlite'
+        self.db_name = db_name + '.sqlite'
         self.engine = create_engine('sqlite:///' + self.db_name)
-        self.session = sessionmaker()
-        self.session.configure(bind=self.engine)
         Base.metadata.create_all(self.engine)
+        session_maker = sessionmaker(bind=self.engine)
+        self.session = session_maker()

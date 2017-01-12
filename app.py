@@ -2,9 +2,9 @@
 Amity helps you allocate rooms to people at random. Select a command to get
 started.
 Usage:
-    create_room <room_type> <room_name>
+    create_room <r_type> <room_name>
     add_person <first_name> <last_name> <designation> [--wants_accomodation=N]
-    reallocate_person <person_id> <room_type> <new_room>
+    reallocate_person <person_id> <r_type> <new_room>
     load_people <filename>
     print_room <room_name>
     print_allocations [--o=filename]
@@ -144,15 +144,30 @@ class AmityInteractive(cmd.Cmd):
 
     @app_exec
     def do_reallocate_person(self, arg):
-        """
-        Reallocates person
-        Usage: reallocate_person <first_name> <last_name> <room_type> <new_room>
-        """
-        first_name = arg["<first_name>"]
-        last_name = arg["<last_name>"]
-        room_type = arg["<room_type>"]
-        new_room = arg["<new_room>"]
-        self.amity.reallocate_person(first_name, last_name, room_type, new_room)
+        ''' Usage: reallocate_person <firstname> <lastname> <new_room_name>'''
+        first_name = arg["<firstname>"]
+        last_name = arg["<lastname>"]
+        full_name = first_name + " " + last_name
+        new_room_name = arg["<new_room_name>"]
+
+        if new_room_name.upper() in Amity.office_spaces:
+            Amity.reallocate_person_to_office(full_name.upper(), new_room_name.upper())
+        elif new_room.upper() in Amity.living_spaces:
+            Amity.reallocate_person_to_living_spaces(full_name.upper(), new_room_name.upper())
+        else:
+            print('%s is not a room in Amity' % new_room)
+
+    # @app_exec
+    # def do_reallocate_person(self, arg):
+    #     """
+    #     Reallocates person
+    #     Usage: reallocate_person <first_name> <last_name> <old_room> <new_room>
+    #     """
+    #     first_name = arg["<first_name>"]
+    #     last_name = arg["<last_name>"]
+    #     old_room = arg["<old_room>"]
+    #     new_room = arg["<new_room>"]
+    #     self.amity.reallocate_person(first_name, last_name, old_room, new_room)
 
     @app_exec
     def do_load_state(self, arg):

@@ -1,19 +1,18 @@
-import os
+import os.path
 import random
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import mapper, sessionmaker
 from tabulate import tabulate
 
 from Models.models import (Base, PersonModel, RoomModel, DatabaseCreator,
                            OfficeSpaces, LivingSpaces)
 from room.rooms import Room, OfficeSpace, LivingSpace
-# from room.rooms import LivingSpace
-# from room.rooms import OfficeSpace
 from collections import defaultdict
 from Person.PersonClass import Person, Fellow, Staff
 from colorama import init
-init()
+init(autoreset=True)
+from termcolor import colored
 from  colorama import Fore, Back, Style
 
 class Amity:
@@ -22,27 +21,30 @@ class Amity:
     living_spaces = {"None": []}
     office_spaces = {"None": []}
 
-    def create_room(self, room_type, room_name):
-        """Creates an empty room of the specified type."""
+    def __init__(self):
+        pass
+
+    def create_room(self, r_type, room_name):
+        # Creates an empty room of the specified type.
         if room_name.upper() in [room.room_name for room in Amity.all_rooms]:
-            print(Fore.RED +"Sorry, Room already exists!!!")
+            print(Fore.RED + "Sorry, %s already exists!!!" %room_name.upper())
         else:
             mapping = {'O': OfficeSpace, 'L': LivingSpace}
-            new_room = mapping[room_type.upper()](room_name.upper())
+            new_room = mapping[r_type.upper()](room_name.upper())
             Amity.all_rooms.append(new_room)
-            if room_type.upper() == "L":
+            if r_type.upper() == "L":
                 Amity.living_spaces[room_name.upper()] = []
-            elif room_type.upper() == "O":
+            elif r_type.upper() == "O":
                 Amity.office_spaces[room_name.upper()] = []
             print(Fore.GREEN + room_name.upper() + " created successfully.")
 
     @staticmethod
     def generate_random_office():
-        """Generates a random room of the given type."""
-        offices = [room for room in Amity.all_rooms if room.room_type == "OFFICE"]
+        # Generates a random room of the given type.
+        offices = [room for room in Amity.all_rooms if room.r_type == "OFFICE"]
         available_offices = []
         for office in offices:
-            if office.room_capacity > len(Amity.office_spaces[office.room_name]):
+            if office.capacity > len(Amity.office_spaces[office.room_name]):
                 available_offices.append (office.room_name)
         selected_room = "None"
         if len(available_offices):
@@ -51,11 +53,11 @@ class Amity:
 
     @staticmethod
     def generate_random_living_space():
-        l_spaces = [room for room in Amity.all_rooms if room.room_type == "LIVING SPACE"]
+        l_spaces = [room for room in Amity.all_rooms if room.r_type == "LIVING SPACE"]
         available_living_spaces = []
 
         for lspace in l_spaces:
-            if lspace.room_capacity > len (Amity.living_spaces[lspace.room_name]):
+            if lspace.capacity > len (Amity.living_spaces[lspace.room_name]):
                 available_living_spaces.append (lspace.room_name)
         selected_room = "None"
 
@@ -66,7 +68,7 @@ class Amity:
 
     @staticmethod
     def add_person(first_name, last_name, designation, wants_accommodation="N"):
-        """Adds a new person and allocates a random room to them."""
+        # Adds a new person and allocates a random room to them.
         allocated_office = Amity.generate_random_office()
         mapping = {"F": Fellow, "S": Staff}
         person_id = len(Amity.all_people) + 1
@@ -76,74 +78,70 @@ class Amity:
         Amity.all_people.append(new_person)
         Amity.office_spaces[allocated_office].append(first_name.upper()
                                                           + " " + last_name.upper())
+
         if wants_accommodation.upper() == "Y" and designation.upper() == "F":
             allocated_living_space = Amity.generate_random_living_space()
             Amity.living_spaces[allocated_living_space].append(first_name.upper()
                                                               + " " + last_name.upper())
-        print (first_name, last_name, designation)
+        print (first_name, last_name, Fore.GREEN + "Added successfully as %s" %designation)
 
         if wants_accommodation.upper() == "Y" and designation.upper()=="S":
             print (Fore.RED+ "Sorry, Staff can not be given accomodation")
-        # print("Success!")
 
     @staticmethod
     def load_people(filename):
-        """Loads people from a file.txt into the app and creates them"""
+        # Loads people from a file.txt into the app and creates them.
         with open(filename, 'r') as people_file:
             for person_dets in people_file:
                 details = person_dets.rstrip().split()
                 accommodate = details[3] if len(details) == 4 else "N"
                 Amity.add_person(details[0], details[1], details[2],
                                  accommodate)
+    @staticmethod
+    def reallocate_person_to_office(full_name, new_room_name):
+        '''
+        use the person full name to remove the person from one office
+        to another
+        '''
+        full_name = full_name.upper()
+        if not full_name in Amity.all_people:
+            return 'The person called %s does not exist' % full_name
+
+        if len(Amity.office_spaces[new_room_name]) == 6:
+            return '%s is already full' % new_room_name
+
+        if full_name in Amity.office_spaces[new_room_name]:
+            return '%s is already allocated to %s' % (full_name, new_room_name)
+
+        for room, members in list(Amity.office_rooms.items()):
+            if full_name in members:
+                Amity.office_spaces[room].remove(full_name)
+                Amity.office_rooms[new_room_name].append(full_name)
+
+            print('%s has been reallocated to %s ' % (full_name, new_room_name))
 
     @staticmethod
-    def reallocate_person(first_name, last_name, room_type, new_room):
-        """This function moves the person from one room to another"""
-        full_name = first_name.upper () + " " + last_name.upper ()
-        fellows = [p.name for p in Amity.all_people
-                   if p.designation == "FELLOW"]
-        staff = [p.name for p in Amity.all_people
-                 if p.designation == "STAFF"]
-        available_lspaces = [r.room_name for r in Amity.all_rooms
-                             if r.room_type == "LIVING SPACE"
-                             and len (Amity.living_spaces[r.room_name]) < 4]
+    def reallocate_person_to_living_space(full_name, new_room_name):
 
-        available_offices = [r.room_name for r in Amity.all_rooms
+        # use the person full name to remove the person from one livingspace
+        # to another, should not reallocate to the same room or a room that is full
 
-                             if r.room_type == "OFFICE"
-                             and len (Amity.office_spaces[r.room_name]) < 6]
+        full_name = full_name.upper()
+        if not full_name in Amity.all_people:
+            return 'The person called %s does not exist' % full_name
 
-        if full_name not in fellows and full_name not in staff:
-            print ("The person doesn't exist.")
+        if len(Amity.living_spaces[new_room_name]) == 4:
+            return '%s is already full' % new_room_name
 
-        elif new_room.upper () not in available_lspaces and new_room.upper () not in available_offices:
+        if full_name in Amity.living_spaces[new_room_name]:
+            return '%s is already allocated to %s' % (full_name, new_room_name)
 
-            print ("The room requested does not exist or is not available")
-            print ("Available Offices \n" + available_offices)
-            print ("Available living spaces\n" + available_lspaces)
-        else:
-            if room_type.upper () == "L":
-                if new_room in available_offices and new_room not in available_lspaces:
-                    print ("The room selected is not a LivingSpace.")
-                elif full_name not in fellows:
-                    return "The person has to exist and be a fellow!"
-                else:
-                    for room in Amity.living_spaces.keys ():
-                        if full_name in Amity.living_spaces[room]:
-                            cur_lspace = Amity.living_spaces[room]
-                            cur_lspace.remove (full_name)
-                            Amity.living_spaces[new_room.upper ()].append (full_name)
-                            print ("Success!")
-            elif room_type.upper () == "O":
-                if new_room not in available_offices and new_room in available_lspaces:
-                    print ("The room selected is not an office")
-                else:
-                    for room in Amity.living_spaces.keys ():
-                        if full_name in Amity.office_spaces[room]:
-                            cur_office = Amity.office_spaces[room]
-                            cur_office.remove (full_name)
-                            Amity.office_spaces[new_room.upper ()].append (full_name)
-                            print ("Success!")
+        for room, members in list(Amity.ls_rooms.items()):
+            if full_name in members:
+                Amity.living_spaces[room].remove(full_name)
+                Amity.living_spaces[new_room_name].append(full_name)
+                print('%s has been reallocated to %s ' % (full_name, new_room_name))
+
 
     @staticmethod
     def print_allocations(file_name=None):
@@ -216,30 +214,31 @@ class Amity:
 
     @staticmethod
     def load_state(dbname=None):
-        """Loads data from database into the application."""
-        engine = create_engine("sqlite:///" + dbname + ".sqlite")
-        Session = sessionmaker()
-        Session.configure(bind=engine)
-        session = Session()
-        people = session.query(PersonModel).all()
-        rooms = session.query(RoomModel).all()
-        office_spaces = session.query(OfficeSpaces)
-        living_spaces = session.query(LivingSpaces)
-        if not dbname:
-            print(Fore.RED +"You must select a db to load.")
+        dbname = dbname + ".sqlite"
+        if not os.path.isfile(dbname):
+            print ("database does not exist")
         else:
-            for room in rooms:
+            engine = create_engine("sqlite:///" + dbname)
+            Session = sessionmaker()
+            Session.configure(bind=engine)
+            session = Session()
+            people = session.query(PersonModel).all()
+            rooms = session.query(RoomModel).all()
+            office_spaces = session.query(OfficeSpaces)
+            living_spaces = session.query(LivingSpaces)
+
+            for room in Amity.all_rooms:
                 Amity.all_rooms.append(room)
-            for person in people:
+            for person in Amity.all_people:
                 Amity.all_people.append(person)
             for office_space in office_spaces:
                 all_members = office_space.members.split(",")
-                Amity.office_spaces[office_space.room_name] = all_members
+                Amity.office_spaces[office_space.room_name]=Amity.all_people
             for living_space in living_spaces:
-                all_members = living_space.members.split (",")
+                all_members = living_space.members.split(","
+                )
                 Amity.living_spaces[living_space.room_name] = all_members
-
-            print (Fore.GREEN +"Data from %s loaded to the app." % dbname)
+            print(Fore.GREEN + "Data from %s loaded to the app." %dbname)
 
     @staticmethod
     def save_state(db_name=None):
@@ -248,34 +247,31 @@ class Amity:
             db = DatabaseCreator("default_db")
         else:
             db = DatabaseCreator(db_name)
-        Base.metadata.bind = db.engine
-        db_session = db.session()
+
         for room in Amity.all_rooms:
-            room_to_save = RoomModel(
-                name=room.room_name,
-                rtype=room.room_type,
-                capacity=room.room_capacity
-            )
-            db_session.merge(room_to_save)
+            room_to_save = RoomModel(name=room.room_name,
+            rtype=room.r_type)
+            db.session.add(room_to_save)
+
         for person in Amity.all_people:
             person_to_save = PersonModel(
-                name=person.name,
-                designation=person.designation
-            )
-            db_session.merge(person_to_save)
+            name=person.name, designation=person.designation)
+            db.session.add(person_to_save)
+
         for room in Amity.office_spaces:
             office_members = ",".join(Amity.office_spaces[room])
             office_spaces_sv = OfficeSpaces(
-                room_name=room,
-                members=office_members
+            room_name=room,
+            members=office_members
             )
-            db_session.merge(office_spaces_sv)
+            db.session.add(office_spaces_sv)
         for room in Amity.living_spaces:
-            lspace_members = ",".join(Amity.living_spaces[room])
+            lspace_members = ",".join(Amity.living_spaces
+            [room])
             living_spaces_sv = LivingSpaces(
-                room_name=room,
-                members=lspace_members
-            )
-            db_session.merge(living_spaces_sv)
-        db_session.commit()
-        print (Fore.GREEN +"successfully Saved Current  State as!")
+            room_name=room,
+            members=lspace_members)
+            db.session.add(living_spaces_sv)
+        db.session.commit()
+
+        print(Fore.GREEN + "successfully saved state as %s!" %db_name)
